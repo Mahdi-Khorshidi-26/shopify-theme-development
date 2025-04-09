@@ -1,0 +1,33 @@
+{
+  "name": "mahdi-theme",
+  "version": "1.0.0",
+  "description": "[![Generic badge](https://img.shields.io/badge/course%20available%3F-yes-green.svg)](https://shields.io/)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch:tailwindcss": "npx @tailwindcss/cli -i ./src/tailwind.css -o ./assets/application.css --watch",
+    "build:css": "sass src/main.scss assets/main.css --no-source-map --style=compressed",
+    "sass:watch": "sass --watch src/main.scss:assets/main.css",
+    "shopify:dev": "shopify theme dev",
+    "build:watch:all": "run-p build:css sass:watch watch:tailwindcss shopify:dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polidario/Elizabeth_Clean.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/polidario/Elizabeth_Clean/issues"
+  },
+  "homepage": "https://github.com/polidario/Elizabeth_Clean#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.2",
+    "tailwindcss": "^4.1.2"
+  },
+  "devDependencies": {
+    "sass": "^1.86.3"
+  }
+}
