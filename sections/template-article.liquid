@@ -1,35 +1,81 @@
+<article class="py-5">
 {% for block in section.blocks %}
     {% case block.type %}
-        {% when 'article_title' %}
-            {% if section.settings.article_tile %}
+        {% when 'article_title' %}  
+            {% comment %} {% if section.settings.article_tile %}
                 <h1>{{ article.title }}</h1>
-            {% endif %}
-        {% when 'article_author' %}                        
-            {% if section.settings.author_title %}
-                <small>{{ article.author }}</small>
-            {% endif %}
+            {% endif %} {% endcomment %}
+            <div class="flex items-center justify-center">
+                <div class="max-w-7xl text-center">
+                    <a href="{{ blog.url }}" class="text-base uppercase text-gray-900 hover:text-gray-900 font-bold">{{ blog.title }}</a>
+                    <h1 class="text-4xl md:text-6xl font-medium">
+                        {{ article.title }}
+                    </h1>
+                </div>
+            </div>
+        {% when 'article_author' %}   
+            <div class="flex items-center justify-center">
+                <div class="max-w-7xl text-center">
+                {% if section.settings.author_title %}
+                        <small>{{ article.author }}</small>
+                    {% endif %}
+                </div>
+            </div>                     
+           
         {% when 'article_date' %}
-            {% if section.settings.article_date %}
-                <time datetime="{{ article.published_at | date:'%Y-%m-%d' }}">{{ article.published_at | date:'%Y-%m-%d' }}</time>
-            {% endif %}
+             <div class="flex items-center justify-center">
+                <div class="max-w-7xl text-center">
+                    {% if section.settings.article_date %}
+                        <time datetime="{{ article.published_at | date:format:'on_date' }}">{{ article.published_at | date:'%Y-%m-%d' }}</time>
+                    {% endif %}                
+                </div>
+            </div>
         {% when 'article_thumbnail' %}
-            {% if article.image %}
-                <img src="{{ article.image | image_url: width: 400,height: 400}}" alt="{{ article.title }}" width="400" height="400" class="object-cover">
-                {% else %}
-                <p>No image available</p>
-                {% endif %}
+            <div class="max-w-7xl bg-blue-100 rounded-lg mx-2 md:mx-auto overflow-hidden my-4">
+                {% if article.image %}
+                    <img src="{{ article.image | image_url }}" alt="{{ article.title }}" class="w-full h-80 md:h-96 object-center object-cover" width="100%" height="100%"> 
+                    {% else %}
+                        {% assign placeholder_image = 'lifestyle-2'%}
+                        {{ placeholder_image| placeholder_svg_tag: 'w-full h80 md:h-96 object-center p-5' }}
+                    {% endif %}
+            </div>
         {% when 'article_content' %}
-                <div>{{ article.content }}</div>
+                <div class="flex items-center justify-center">
+                    <div class="max-x-6xl">
+                        {{ article.content }}</div>
+                    </div>
         {% else %}
             <div>No blogs was found!</div>
     {% endcase %}
 {% endfor %}
+</article>
 
 
+{% if blog.comments_enabled? %}
+   <div id="comments" class="my-8">
+    {% if article.comments_count > 0  %}
 
-
-
-
+        {% else %}
+            <div>There are no comments on this article yet!</div>
+    {% endif %}    
+</div>
+<div id="comment_form" class="mb-8">
+    {% form 'new_comment' , article %}
+        <div class="flex-1 mx-auto items-center justify-center max-w-4xl px-4">
+            <div class="px-1 md:flex mb-3">
+                <div class="px-3 md:w-1/2">
+                    <label class="text-gray-700 font-medium uppercase text-xs mb-2" for="comment_author">Name</label>
+                    <input type="text" name="comment[author]" id="comment_author" class="w-full text-gray-700 border py-3 px-4 mb-3 focus:outline-none" placeholder="Mahdi Khorshidi" required />
+                </div>
+                <div class="px-3 md:w-1/2">
+                    <label class="text-gray-700 font-medium uppercase text-xs mb-2" for="comment_email">Email</label>
+                    <input type="text" name="comment[email]" id="comment_email" class="w-full text-gray-700 border py-3 px-4 mb-3 focus:outline-none" placeholder="Mahdi Khorshidi" required/>
+                </div>
+            </div>
+        </div>
+    {% endform %}
+</div>
+{% endif %}
 
 
 {% schema %}
