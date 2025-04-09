@@ -1,27 +1,24 @@
-
-<div class="max-w-md">
-    <div class="text-5xl font-bold my-4">
-        {{ section.settings.title }}
-        {% comment %} <h1>{{ 'general.404.title' | t | upcase}}</h1> {% endcomment %}
-    </div>
-    <div class="my-4">
-        <p class="text-base md:text-xl leading-normal">
-            {{ section.settings.description | capitalize}}
-            {% comment %} {{ 'general.404.description' | t | upcase}} {% endcomment %}
-        </p>
-    </div>
-    <div>
-        {% if section.settings.back_to_home_url == blank %}
-            {% assign shop_url = shop.secure_url %}    
-        {% else %}
-            {% assign shop_url = section.settings.back_to_home_url %}
-        {% endif %}
-        <a href="{{ shop_url }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-indigo-600 text-white text-base font-semibold shadow-md hover:bg-indigo-700 hover:shadow-lg transition-all duration-300 ease-in-out">
-            {% comment %} {{ 'general.404.back_to_home' | t | upcase}} {% endcomment %}
-            {{ section.settings.back_to_home_lable }}
-        </a>
-    </div>
+<div class="error-container">
+  <div class="error-title">
+    {{ section.settings.title }}
+  </div>
+  <div class="error-description">
+    <p>
+      {{ section.settings.description | capitalize }}
+    </p>
+  </div>
+  <div>
+    {% if section.settings.back_to_home_url == blank %}
+      {% assign shop_url = shop.secure_url %}
+    {% else %}
+      {% assign shop_url = section.settings.back_to_home_url %}
+    {% endif %}
+    <a href="{{ shop_url }}" class="back-button">
+      {{ section.settings.back_to_home_lable }}
+    </a>
+  </div>
 </div>
+
 
 {% schema %}
     {
