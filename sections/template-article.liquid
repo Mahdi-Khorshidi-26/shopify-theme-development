@@ -1,0 +1,20 @@
+<h1>{{ article.title }}</h1>
+<small>{{ article.author }}</small>
+<time datetime="{{ article.published_at | date:'%Y-%m-%d' }}">{{ article.published_at | date:'%Y-%m-%d' }}</time>
+<img src="{{ article.image | image_url:'large' }}" loading="lazy" alt="{{article.image.alt}}" width="100px" height="100px">
+<div>{{ article.content }}</div>
+
+{% schema %}
+    {
+        "name": "Template Article",
+        "tag": "section",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "default": "Article Title",
+                "label": "Article Heading Title"
+            }
+        ]
+    }
+{% endschema %}
