@@ -1,8 +1,36 @@
-<h1>{{ article.title }}</h1>
-<small>{{ article.author }}</small>
-<time datetime="{{ article.published_at | date:'%Y-%m-%d' }}">{{ article.published_at | date:'%Y-%m-%d' }}</time>
-<img src="{{ article.image | image_url:'large' }}" loading="lazy" alt="{{article.image.alt}}" width="100px" height="100px">
-<div>{{ article.content }}</div>
+{% for block in section.blocks %}
+    {% case block.type %}
+        {% when 'article_title' %}
+            {% if section.settings.article_tile %}
+                <h1>{{ article.title }}</h1>
+            {% endif %}
+        {% when 'article_author' %}                        
+            {% if section.settings.author_title %}
+                <small>{{ article.author }}</small>
+            {% endif %}
+        {% when 'article_date' %}
+            {% if section.settings.article_date %}
+                <time datetime="{{ article.published_at | date:'%Y-%m-%d' }}">{{ article.published_at | date:'%Y-%m-%d' }}</time>
+            {% endif %}
+        {% when 'article_thumbnail' %}
+            {% if article.image %}
+                <img src="{{ article.image | image_url: width: 400,height: 400}}" alt="{{ article.title }}" width="400" height="400" class="object-cover">
+                {% else %}
+                <p>No image available</p>
+                {% endif %}
+        {% when 'article_content' %}
+                <div>{{ article.content }}</div>
+        {% else %}
+            <div>No blogs was found!</div>
+    {% endcase %}
+{% endfor %}
+
+
+
+
+
+
+
 
 {% schema %}
     {
@@ -14,7 +42,54 @@
                 "id": "title",
                 "default": "Article Title",
                 "label": "Article Heading Title"
+            },
+            {
+                "type": "checkbox",
+                "id": "author_title",
+                "default":true,
+                "label": "Display Author Name"
+            },
+            {
+                "type": "checkbox",
+                "id": "article_tile",
+                "default":true,
+                "label": "Display Article Title"
+            },
+            {
+                "type": "checkbox",
+                "id": "article_date",
+                "default":true,
+                "label": "Display Article Date"
+            }
+
+        ],
+        "blocks": [
+            {
+                "type": "article_title",
+                "name": "Article Title",
+                "limit": 1
+            },
+             {
+                "type": "article_author",
+                "name": "Article Author",
+                "limit": 1
+            },
+            {
+                "type": "article_date",
+                "name": "Article Date",
+                "limit": 1
+            },
+            {
+                "type": "article_thumbnail",
+                "name": "Article Thumbnail",
+                "limit": 1
+            },
+            {
+                "type": "article_content",
+                "name": "Article Content",
+                "limit": 1
             }
         ]
+        
     }
 {% endschema %}

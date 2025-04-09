@@ -4,7 +4,25 @@
   //   "wrapper": "div#404_template.custom-class[custom-attribute=hello]",
   "sections": {
     "template": {
-      "type": "template-article"
+      "type": "template-article",
+      "blocks": {
+        "Title": {
+          "type": "article_title"
+        },
+        "Author": {
+          "type": "article_author"
+        },
+        "Date": {
+          "type": "article_date"
+        },
+        "Thumbnail": {
+          "type": "article_thumbnail"
+        },
+        "Content": {
+          "type": "article_content"
+        }
+      },
+      "block_order": ["Title", "Author", "Date", "Thumbnail", "Content"]
     }
   },
   "order": ["template"]
