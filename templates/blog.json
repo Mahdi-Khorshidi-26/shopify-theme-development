@@ -1,0 +1,11 @@
+{
+  "name": "Template Blog",
+  //   "layout": "theme",
+  //   "wrapper": "div#404_template.custom-class[custom-attribute=hello]",
+  "sections": {
+    "template": {
+      "type": "template-blog"
+    }
+  },
+  "order": ["template"]
+}
