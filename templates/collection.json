@@ -1,0 +1,11 @@
+{
+  "name": "Template Collection",
+  //   "layout": "theme",
+  //   "wrapper": "div#404_template.custom-class[custom-attribute=hello]",
+  "sections": {
+    "template": {
+      "type": "template-collection"
+    }
+  },
+  "order": ["template"]
+}
