@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "feature-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "feature_collection": "all"
+      }
+    }
+  },
+  "order": ["feature-collection"]
+}
