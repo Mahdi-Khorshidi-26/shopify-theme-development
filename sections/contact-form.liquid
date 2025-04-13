@@ -1,0 +1,315 @@
+<div class="flex flex-col items-center my-8">
+  {% if section.settings.title != blank %}
+    <h1 class="text-3xl font-medium my-8 md:my-16 block">{{ section.settings.title }}</h1>
+  {% endif %}
+  {% form 'contact' %}
+    {% if form.errors %}
+      <div class="border p-5">
+        <div class="flex flex-row items-center w-full my-3">
+          <div class="text-red-500">
+            {% render 'icon-faild' %}
+          </div>
+          <div class="text-sm font-medium ml-3">Oh no! Your Email was not Sent</div>
+        </div>
+        <ul class="px-4 mb-3 ml-7 list-decimal">
+          {% for error in form.errors %}
+            <li>
+              <span>{{ form.errors.messages[error] }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% elsif form.posted_successfully? %}
+      <div class="flex flex-row items-center w-full my-3 p-5">
+        <div class="text-green-500">
+          {% render 'icon-success' %}
+        </div>
+        <div class="text-sm font-medium ml-3">Email has got sent successfully</div>
+      </div>
+    {% endif %}
+    <div class="max-w-6xl mx-auto justify-center flex-1 items-center px-4">
+      <div class="flex px-1 mb-3">
+        <div class="px-3 md:w-1/2">
+          <label class="uppercase text-xs text-gray-500 font-medium" for="contact_name">
+            {{- section.settings.name_label -}}
+          </label>
+          <input
+            class="border py-3 px-4 mb-3 text-gray-700 w-full"
+            type="text"
+            name="contact[name]"
+            id="contact_name"
+            placeholder="{{ section.settings.name_placeholder }}"
+          >
+        </div>
+
+        <div class="px-3 md:w-1/2">
+          <label class="uppercase text-xs text-gray-500 font-medium" for="contact_email">
+            {{- section.settings.email_label -}}
+          </label>
+          <input
+            class="border py-3 px-4 mb-3 text-gray-700 w-full"
+            type="email"
+            name="contact[email]"
+            id="contact_email"
+            placeholder="{{ section.settings.email_placeholder }}"
+          >
+        </div>
+      </div>
+
+      <div class="flex px-1 mb-3">
+        <div class="w-full px-3">
+          <label class="uppercase text-xs text-gray-500 font-medium" for="contact_message">
+            {{- section.settings.message_label -}}
+          </label>
+          <textarea
+            class="border py-3 px-4 mb-3 text-gray-700 w-full"
+            name="contact[body]"
+            id="contact_message"
+            placeholder="{{ section.settings.message_placeholder }}"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="flex px-1 mb-3">
+        <div class="w-full px-3">
+          <input
+            type="submit"
+            class="w-full cursor-pointer px-4 py-2 border text-base font-medium bg-gray-900 text-white hover:bg-gray-700"
+            value="{{ section.settings.submit_button_text }}"
+          >
+        </div>
+      </div>
+    </div>
+  {% endform %}
+</div>
+
+{% schema %}
+{
+  "name": "Contact Form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "name_label",
+      "label": "Name Field Label",
+      "default": "Name"
+    },
+    {
+      "type": "text",
+      "id": "name_placeholder",
+      "label": "Name Field Placeholder",
+      "default": "Enter your name"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email Field Label",
+      "default": "Email Address"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Field Placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "message_label",
+      "label": "Message Field Label",
+      "default": "Message"
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Message Field Placeholder",
+      "default": "Type your message here"
+    },
+    {
+      "type": "text",
+      "id": "submit_button_text",
+      "label": "Submit Button Text",
+      "default": "Submit Message"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Form",
+      "category": "Forms"
+    }
+  ]
+}
+{% endschema %}
+
+{% comment %}
+  {% schema %}
+  {
+    "name": "Mahdi Contact Form",
+    "presets": [
+      {
+        "name": "Mahdi Contact Form"
+      }
+    ]
+  }
+  {% endschema %}
+{% endcomment %}
+
+{% comment %}
+  {% schema %}
+  {
+    "name": "Universal Section",
+    "tag": "section",
+    "class": "universal-section",
+    "max_blocks": 50,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "My Section Title"
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description"
+      },
+      {
+        "type": "number",
+        "id": "number_setting",
+        "label": "Number Setting",
+        "default": 5
+      },
+      {
+        "type": "range",
+        "id": "range_setting",
+        "label": "Range Setting",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 50
+      },
+      {
+        "type": "checkbox",
+        "id": "show_feature",
+        "label": "Show Feature",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "alignment",
+        "label": "Alignment",
+        "options": [
+          { "value": "left", "label": "Left" },
+          { "value": "center", "label": "Center" },
+          { "value": "right", "label": "Right" }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "radio",
+        "id": "layout_style",
+        "label": "Layout Style",
+        "options": [
+          { "value": "grid", "label": "Grid" },
+          { "value": "list", "label": "List" }
+        ],
+        "default": "grid"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link"
+      },
+      {
+        "type": "video_url",
+        "id": "video",
+        "label": "Video URL",
+        "accept": ["youtube", "vimeo"]
+      },
+      {
+        "type": "richtext",
+        "id": "rich_text",
+        "label": "Rich Text"
+      },
+      {
+        "type": "html",
+        "id": "custom_html",
+        "label": "Custom HTML"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text_block",
+        "name": "Text Block",
+        "settings": [
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text",
+            "default": "Sample block text"
+          }
+        ]
+      },
+      {
+        "type": "image_block",
+        "name": "Image Block",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "block_image",
+            "label": "Block Image"
+          }
+        ]
+      },
+      {
+        "type": "button_block",
+        "name": "Button Block",
+        "settings": [
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button Label"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button URL"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Default",
+        "category": "Custom",
+        "blocks": [
+          {
+            "type": "text_block"
+          },
+          {
+            "type": "image_block"
+          }
+        ],
+        "settings": {
+          "title": "Welcome to Our Store",
+          "show_feature": true
+        }
+      }
+    ]
+  }
+  {% endschema %}
+{% endcomment %}

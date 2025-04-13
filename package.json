@@ -9,7 +9,7 @@
     "build:css": "sass src/main.scss assets/main.css --no-source-map --style=compressed",
     "sass:watch": "sass --watch src/main.scss:assets/main.css",
     "shopify:dev": "shopify theme dev",
-    "build:watch:all": "run-p build:css sass:watch watch:tailwindcss shopify:dev"
+    "start": "run-p watch:tailwindcss shopify:dev"
   },
   "repository": {
     "type": "git",
